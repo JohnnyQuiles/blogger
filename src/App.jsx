@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import DisplayBlogs from './components/DisplayBlogs';
+import "./App.css";
 
 function App() {
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
   const [blogs, setBlogs] = useState([]); 
 
@@ -20,6 +21,7 @@ function App() {
       <div className="App">
         <h1>Blogger</h1>
         <br />
+        <div className="bloggers">
         <DisplayBlogs 
         blogs = {blogs}
         limit = {limit}
@@ -31,11 +33,14 @@ function App() {
           return (
             <div>
               <div>
-                <h1>{blog.author}</h1>
+                <h1>{blog.title}</h1>
+                <h3>{blog.author}</h3>
+                <p>{blog.text}</p>
               </div>
             </div>
           );
         })}
+      </div>
       </div>
     )
   }

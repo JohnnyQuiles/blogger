@@ -1,7 +1,21 @@
 .App {
-  text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+background-color: #282c34;
 }
+h1{
+  color: aliceblue;
+}
+.bloggers {
+  color: #61dafb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -27,7 +41,6 @@
 .App-link {
   color: #61dafb;
 }
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
