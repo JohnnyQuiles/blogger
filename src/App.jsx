@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-const mockApi = 'https://6239ddb128bcd99f02763cfe.mockapi.io/blogs'; 
+import DisplayBlogs from './components/DisplayBlogs';
 
-async function allBlogs (blog) {
+const mockApi = 'https://6239ddb128bcd99f02763cfe.mockapi.io/blogs';
+
+async function allBlogs() {
   const response = await fetch(`${mockApi}`, {
     method: "GET",
     mode: "cors",
@@ -11,41 +13,65 @@ async function allBlogs (blog) {
       "access-control-request-headers": "content-type",
       "x-Trigger": "CORS",
     },
-    body: JSON.stringify({
-      blog
-    })
   });
-  const fetchRes = await response.text();
+  // console.log("RESPONSE:", response);
+  const fetchRes = await response.json();
   console.log("fetchRes:", fetchRes);
   return fetchRes;
 }
-
 export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      createdAt: "",
       title: "",
       text: "",
       id: ""
     }
   }
-  handleBlog = (event) => {
-    this.setState({id: event.target.value })
+  handleCreateAt = (event) => {
+    this.setState({ createdAt: event.target.value });
+  }
+  handleTitle = (event) => {
+    this.setState({ title: event.target.value })
+  }
+  handleText = (event) => {
+    this.setState({ text: event.target.value })
+  }
+  handleId = (event) => {
+    this.setState({ id: event.target.value })
   }
   getAllBlogs = async () => {
-    const showBlogRes = await allBlogs(this.state)
+    const showBlogRes = await allBlogs()
     console.log("blogs", showBlogRes);
   }
   render() {
+    const { createdAt, title, text, id} = this.state;
     return (
       <div className="App">
         <h1>Blogger</h1>
         <br />
+        <div className="BlogDisplays">
+          <DisplayBlogs
+            createdAt={createdAt}
+            title={title}
+            text={text}
+            id={id}
+          />
 
-        <label>Blogs:</label>
-        
-        <button onClick={this.getAllBlogs}></button>
+          {/* <p name="title" value={title} onChange={this.handleTitle}></p>
+        <br />
+
+        <p name='text' value={text} onChange={this.handleText}></p>
+        <br />
+
+        <p name="id" value={id} onChange={this.handleId}></p>
+        <br /> */}
+
+          <button onClick={this.getAllBlogs}>Get Blogs</button>
         </div>
+      </div>
+
     )
   }
 }
